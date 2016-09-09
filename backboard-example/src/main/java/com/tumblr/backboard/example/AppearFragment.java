@@ -122,7 +122,7 @@ public class AppearFragment extends Fragment {
 								rootLocation[1] +
 								2 * Math.random() * mCircles[i].getMeasuredHeight());
 					} else {
-						actors[i].setTouchEnabled(true);
+						//actors[i].setTouchEnabled(true);
 
 						for (Actor.Motion motion : actors[i].getMotions()) {
 							for (EventImitator imitator : motion.getImitators()) {

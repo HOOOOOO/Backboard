@@ -141,29 +141,42 @@ public class MotionImitator extends EventImitator {
 	public void constrain(final MotionEvent event) {
 		super.constrain(event);
 
+		// 这个初始点击点也被转换成相对于中心的位置
 		mDownPosition = mProperty.getValue(event) + mOffset;
 	}
 
+	// 动作传下来后最先调用
 	@Override
 	public void imitate(final View view, @NonNull final MotionEvent event) {
 
 		final float viewValue = mProperty.getValue(view);
 		final float eventValue = mProperty.getValue(event);
+
+		// 可以使第一次按下时View会自动移动使得点击点为View的中间
 		mOffset = mProperty.getOffset(view);
+
+
+		if(mProperty.name().equals("X"))
+		System.out.println("MotionImitator.class" + "-->" + "imitate" +" "+mProperty.name()+" viewValue "+ viewValue + " eventValue "
+				+ eventValue + " mOffset " + mOffset);
 
 		if (event.getHistorySize() > 0) {
 			final float historicalValue = mProperty.getOldestValue(event);
 
-			imitate(viewValue + mOffset, eventValue, eventValue - historicalValue, event);
+			// eventValue + mOffset 相当于传下去的都是点击点相对于中心的位置 每次都更新 依据这个值来增加或减少viewvalue
+			imitate(viewValue, eventValue + mOffset, eventValue - historicalValue, event);
 		} else {
-			imitate(viewValue + mOffset, eventValue, 0, event);
+			imitate(viewValue, eventValue + mOffset, 0, event);
 		}
 	}
 
 	@Override
 	public void mime(final float offset, final float value, final float delta, final float dt, final MotionEvent event) {
+		System.out.println("MotionImitator.class" + "-->" + "mime" + " offset " + offset + " value " + value);
 		if (mTrackStrategy == TRACK_DELTA) {
-			super.mime(offset - mDownPosition, value, delta, dt, event);
+			System.out.println("MotionImitator.class" + "-->" + "mime mDownPosition" + " " + mDownPosition);
+			// 这样相当于把点击点转为相对于初始点击点的位置
+			super.mime(offset, value - mDownPosition, delta, dt, event);
 		} else {
 			super.mime(offset, value, delta, dt, event);
 		}

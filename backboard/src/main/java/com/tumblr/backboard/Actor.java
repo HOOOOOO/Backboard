@@ -614,6 +614,7 @@ public final class Actor {
 			}
 
 			for (Motion motion : mMotions) {
+				// 在这里把动作传下去
 				for (EventImitator imitator : motion.imitators) {
 					imitator.imitate(v, event);
 				}

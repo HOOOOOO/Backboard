@@ -71,6 +71,7 @@ public class Performer implements SpringListener {
 	public void onSpringUpdate(@NonNull final Spring spring) {
 		if (mProperty != null && mTarget != null) {
 			mProperty.set(mTarget, (float) spring.getCurrentValue());
+			System.out.println((float) spring.getCurrentValue()+" "+mProperty.getName());
 		}
 	}
 
