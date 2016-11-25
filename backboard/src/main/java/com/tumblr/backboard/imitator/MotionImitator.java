@@ -155,11 +155,6 @@ public class MotionImitator extends EventImitator {
 		// 可以使第一次按下时View会自动移动使得点击点为View的中间
 		mOffset = mProperty.getOffset(view);
 
-
-		if(mProperty.name().equals("X"))
-		System.out.println("MotionImitator.class" + "-->" + "imitate" +" "+mProperty.name()+" viewValue "+ viewValue + " eventValue "
-				+ eventValue + " mOffset " + mOffset);
-
 		if (event.getHistorySize() > 0) {
 			final float historicalValue = mProperty.getOldestValue(event);
 
@@ -172,9 +167,7 @@ public class MotionImitator extends EventImitator {
 
 	@Override
 	public void mime(final float offset, final float value, final float delta, final float dt, final MotionEvent event) {
-		System.out.println("MotionImitator.class" + "-->" + "mime" + " offset " + offset + " value " + value);
 		if (mTrackStrategy == TRACK_DELTA) {
-			System.out.println("MotionImitator.class" + "-->" + "mime mDownPosition" + " " + mDownPosition);
 			// 这样相当于把点击点转为相对于初始点击点的位置
 			super.mime(offset, value - mDownPosition, delta, dt, event);
 		} else {

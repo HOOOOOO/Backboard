@@ -73,8 +73,6 @@ public abstract class EventImitator extends Imitator {
 	public void mime(final float offset, final float value, final float delta, final float dt, final MotionEvent event) {
 		if (mSpring != null) {
 			// viewvalue + offset + eventvalue
-			System.out.println("EventImitator.class" + "-->" + "mime" + " offset " + offset + " value" + value);
-			System.out.println("EventImitator.class" + "-->" + "mime" + " " +(mapToSpring(offset + value)));
 			mSpring.setEndValue(mapToSpring(offset + value));
 
 			if (mFollowStrategy == FOLLOW_EXACT) {
@@ -114,7 +112,6 @@ public abstract class EventImitator extends Imitator {
 	 */
 	protected void imitate(final float offset, final float value, final float delta, @Nullable final MotionEvent event) {
 		if (event != null) {
-			System.out.println("EventImitator.class" + "-->" + "imitate" + " offset " + offset + " value " + value);
 			switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				constrain(event);
